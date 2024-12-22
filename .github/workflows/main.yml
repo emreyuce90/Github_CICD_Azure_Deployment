@@ -25,7 +25,7 @@ jobs:
       run: dotnet build ./Github_CICD_Azure_Deployment/Github_CICD_Azure_Deployment.csproj
   
     - name: Publish
-      run: dotnet publish ./Github_CICD_Azure_Deployment/Github_CICD_Azure_Deployment.csproj --configuration Release --no-build --output './publish'
+      run: dotnet publish ./Github_CICD_Azure_Deployment/Github_CICD_Azure_Deployment.csproj --configuration Release --output './publish'
 
     - name: Deployment
       uses: azure/webapps-deploy@v2
