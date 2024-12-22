@@ -25,4 +25,4 @@ jobs:
       run: dotnet build ./Github_CICD_Azure_Deployment/Github_CICD_Azure_Deployment.csproj
   
     - name: Publish
-      run: dotnet publish ./Github_CICD_Azure_Deployment/Github_CICD_Azure_Deployment.csproj --configuration Release --no-build
+      run: dotnet publish ./Github_CICD_Azure_DeploGithub_CICD_Azure_Deployment.csproj --configuration Release
