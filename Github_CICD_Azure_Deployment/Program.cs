@@ -26,7 +26,7 @@ namespace Github_CICD_Azure_Deployment
 
             app.UseAuthorization();
 
-            app.MapGet("/api/todos", () => new List<string>() { "Todo 1", "Todo 2", "Todo 3" });
+            app.MapGet("/api/todos", () => new List<string>() { "Todo 1", "Todo 2", "Todo 3","Todo 4", "Todo 5" });
 
             app.Run();
         }
