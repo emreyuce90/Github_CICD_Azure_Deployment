@@ -25,4 +25,12 @@ jobs:
       run: dotnet build ./Github_CICD_Azure_Deployment/Github_CICD_Azure_Deployment.csproj
   
     - name: Publish
-      run: dotnet publish ./Github_CICD_Azure_Deployment/Github_CICD_Azure_Deployment.csproj --configuration Release
+      run: dotnet publish ./Github_CICD_Azure_Deployment/Github_CICD_Azure_Deployment.csproj --configuration Release --no-build --output './publish'
+
+    - name: Deployment
+      uses: azure/webapps-deploy@v2
+    - with:
+        app-name: basic-todo-app
+        publish-profile: ${{secrets.AZURE_DEPLOYMENT_PROFILE}}
+        package: './publish'
+        
