@@ -1,4 +1,8 @@
 
+using Github_CICD_Azure_Deployment.Context;
+using Github_CICD_Azure_Deployment.Models;
+using Microsoft.EntityFrameworkCore;
+
 namespace Github_CICD_Azure_Deployment
 {
     public class Program
@@ -13,6 +17,9 @@ namespace Github_CICD_Azure_Deployment
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddDbContext<AppDbContext>(opt => {
+                opt.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"));
+            });
 
             var app = builder.Build();
 
@@ -26,7 +33,18 @@ namespace Github_CICD_Azure_Deployment
 
             app.UseAuthorization();
 
-            app.MapGet("/api/todos", () => new List<string>() { "Todo 1", "Todo 2", "Todo 3","Todo 4", "Todo 5" });
+            app.MapGet("/", () => "Hello World");
+
+            app.MapGet("/api/todos", async (AppDbContext context) => Results.Ok(await context.Todos.ToListAsync()));
+            app.MapPost("/api/todos", async (string name, AppDbContext context) => {
+
+                var todo = new Todo() {
+                    Name = name,
+                };
+                await context.Todos.AddAsync(todo);
+                await context.SaveChangesAsync();
+                return Results.Ok(todo);
+            });
 
             app.Run();
         }
